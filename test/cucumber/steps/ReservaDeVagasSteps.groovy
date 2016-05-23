@@ -52,7 +52,7 @@ boolean todasOcupadasESemHistorico(vagas) {
     return r
 }
 
-Given(~/^eu criei as vagas "([^"]*)" e "([^"]*)"$/) { String vaga1, vaga2 ->
+Given(~'^eu criei as vagas "([^"]*)" e "([^"]*)"$') { String vaga1, vaga2 ->
     to CreatePage
     at CreatePage
     page.criarVaga(vaga1)
@@ -62,27 +62,27 @@ Given(~/^eu criei as vagas "([^"]*)" e "([^"]*)"$/) { String vaga1, vaga2 ->
     page.criarVaga(vaga2)
 }
 
-And(~/^eu estou na página de visualização das vagas$/) { ->
+And(~'^eu estou na página de visualização das vagas$') { ->
     to Visualizacao
     at Visualizacao
 }
 
-And(~/^eu vejo a vaga "([^"]*)" vazia$/) { String vaga ->
+And(~'^eu vejo a vaga "([^"]*)" vazia$') { String vaga ->
     at Visualizacao
     assert page.vagaEstaVazia(vaga)
 }
 
-When(~/^eu seleciono a vaga "([^"]*)"$/) { String vaga ->
+When(~'^eu seleciono a vaga "([^"]*)"$') { String vaga ->
     at Visualizacao
     page.selecionarVaga(vaga)
 }
 
-Then(~/^a vaga "([^"]*)" é marcada como ocupada$/) { String vaga ->
+Then(~'^a vaga "([^"]*)" é marcada como ocupada$') { String vaga ->
     at Visualizacao
     assert page.vagaEstaOcupada(vaga)
 }
 
-Given(~/^algumas vagas não estão ocupadas$/) { ->
+Given(~'^algumas vagas não estão ocupadas$') { ->
     def controlador = new VagaController()
     criarEReservarVaga("e1", controlador)
     criarEReservarVaga("e2", controlador)
@@ -90,7 +90,7 @@ Given(~/^algumas vagas não estão ocupadas$/) { ->
     assert Vaga.findByOcupada(false) != null
 }
 
-Then(~/^O sistema reserva uma das vagas desocupadas$/) { ->
+Then(~'^O sistema reserva uma das vagas desocupadas$') { ->
     assert (!ocupadasESemHistorico) == todasOcupadasESemHistorico(Vaga.list())
     // assert Vaga.findByDescricao("e3").ocupada
 }
